@@ -25,6 +25,7 @@ def generate(
   Generate Excel Using XlsxWriter \n
   It need to configure with passing header info or any other XlsxWriter using pre-configure config file \n
   """
+  
   workbook = Excel.Workbook(target)
   sheet = workbook.add_worksheet(sheet_name)
 
@@ -55,7 +56,8 @@ def generate(
       raise exc
     
   else:
-    data = json.load(source)
+    with(open(source)) as file:
+      data = json.load(file)
   
   # build header
   for conf in newconfig:
@@ -90,4 +92,3 @@ def generate(
     no = no + 1
 
   workbook.close()
-
